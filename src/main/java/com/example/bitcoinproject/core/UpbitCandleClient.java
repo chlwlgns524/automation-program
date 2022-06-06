@@ -1,4 +1,4 @@
-package com.example.bitcoinproject;
+package com.example.bitcoinproject.core;
 
 import com.example.bitcoinproject.dto.MinuteCandleDTO;
 import com.example.bitcoinproject.spec.MarketType;
