@@ -31,5 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
-!/src/main/java/com/example/bitcoinproject/MyTest.java
+!/src/main/java/com/example/bitcoinproject/Ex.java
 !/src/main/resources/application.yml
