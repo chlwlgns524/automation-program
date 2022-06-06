@@ -1,18 +1,16 @@
 package com.example.bitcoinproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 @Setter
 @Getter
-public class MinuteCandle {
-
-    @JsonIgnore
-    private long id;
+public class MinuteCandleDTO {
 
     private String market;
 
