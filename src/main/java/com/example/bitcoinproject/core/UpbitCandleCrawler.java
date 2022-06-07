@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class CandleCrawler {
+public class UpbitCandleCrawler {
 
     private static final int MAXIMUM_COUNT = 200;
     private static final int HOURS_PER_DAY = 24;

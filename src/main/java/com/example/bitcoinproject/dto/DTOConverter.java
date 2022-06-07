@@ -1,12 +1,12 @@
 package com.example.bitcoinproject.dto;
 
-import com.example.bitcoinproject.entity.FiveMinuteCandleOnMay;
+import com.example.bitcoinproject.entity.BtcFiveMinuteCandle;
 import com.example.bitcoinproject.spec.MarketType;
 
 public class DTOConverter {
 
-    public static FiveMinuteCandleOnMay toFiveMinuteCandleOnMay(MinuteCandleDTO minuteCandleDTO) {
-        return FiveMinuteCandleOnMay.builder()
+    public static BtcFiveMinuteCandle toFiveMinuteCandle(MinuteCandleDTO minuteCandleDTO) {
+        return BtcFiveMinuteCandle.builder()
                 .market(MarketType.getEnumString(minuteCandleDTO.getMarket()))
                 .candleDateTimeUtc(minuteCandleDTO.getCandleDateTimeUtc())
                 .candleDateTimeKst(minuteCandleDTO.getCandleDateTimeKst())

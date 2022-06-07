@@ -26,14 +26,13 @@ public class UpbitCandleClient {
 
     private URI baseUri;
 
-    public UpbitCandleClient(Environment env, RestTemplate restTemplate) {
+    public UpbitCandleClient(RestTemplate restTemplate, Environment env) {
         this.restTemplate = restTemplate;
         try {
-            this.baseUri = new URI(Objects.requireNonNull(env.getProperty("baseUri")));
+            this.baseUri = new URI(Objects.requireNonNull(env.getProperty("info.baseUri")));
         } catch (URISyntaxException e) {
             log.error("URI syntax is wrong.");
         }
-//
     }
 
     public List<MinuteCandleDTO> getMinuteCandles(@NonNull UnitType unit, @NonNull MarketType market, int count, LocalDateTime to) {

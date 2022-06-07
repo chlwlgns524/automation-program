@@ -1,6 +1,6 @@
 package com.example.bitcoinproject.service;
 
-import com.example.bitcoinproject.core.CandleCrawler;
+import com.example.bitcoinproject.core.UpbitCandleCrawler;
 import com.example.bitcoinproject.dto.DTOConverter;
 import com.example.bitcoinproject.dto.MinuteCandleDTO;
 import com.example.bitcoinproject.repository.CandleJpaRepository;
@@ -16,17 +16,17 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultCandleCrawlingService implements CandleCrawlingService{
+public class DefaultCandleCrawlingService implements CandleCrawlingService {
 
     private final CandleJpaRepository candleJpaRepository;
-    private final CandleCrawler candleCrawler;
+    private final UpbitCandleCrawler upbitCandleCrawler;
 
     @Transactional
     public int crawMinuteCandlesAndSaveInDb(UnitType unit, MarketType market, LocalDateTime to, int days) {
-        List<MinuteCandleDTO> result = candleCrawler.crawlMinuteCandles(unit, market, to, days);
+        List<MinuteCandleDTO> result = upbitCandleCrawler.crawlMinuteCandles(unit, market, to, days);
 
         candleJpaRepository.saveAll(result.stream()
-                .map(DTOConverter::toFiveMinuteCandleOnMay)
+                .map(DTOConverter::toFiveMinuteCandle)
                 .collect(Collectors.toList()));
 
         return result.size();
