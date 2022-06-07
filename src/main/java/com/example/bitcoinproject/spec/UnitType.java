@@ -1,7 +1,5 @@
 package com.example.bitcoinproject.spec;
 
-import java.util.Arrays;
-
 public enum UnitType {
 
     ONE_MINUTE(1),
