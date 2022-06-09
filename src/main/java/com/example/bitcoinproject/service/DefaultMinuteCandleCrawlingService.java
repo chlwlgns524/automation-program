@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultCandleCrawlingService implements CandleCrawlingService {
+public class DefaultMinuteCandleCrawlingService implements MinuteCandleCrawlingService {
 
     private final FiveMinuteCandleJpaRepository fiveMinuteCandleJpaRepository;
     private final CandleCrawler candleCrawler;
@@ -26,14 +26,10 @@ public class DefaultCandleCrawlingService implements CandleCrawlingService {
         List<CandleDTO> result = candleCrawler.crawlMinuteCandles(unit, market, to, days);
 
         fiveMinuteCandleJpaRepository.saveAll(result.stream()
-                .map(DTOConverter::toBtcFiveMinuteCandleEntity)
+                .map(DTOConverter::toFiveMinuteCandleEntity)
                 .collect(Collectors.toList()));
 
         return result.size();
-    }
-
-    public int crawlDayCandlesAndSaveInDb(MarketType marketType, LocalDateTime to, int days) {
-        List<CandleDTO> result = candleCrawler.crawlDayCandles(marketType, to, days);
     }
 
 }

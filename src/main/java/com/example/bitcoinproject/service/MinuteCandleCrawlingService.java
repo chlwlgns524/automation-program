@@ -5,7 +5,7 @@ import com.example.bitcoinproject.spec.UnitType;
 
 import java.time.LocalDateTime;
 
-public interface CandleCrawlingService {
+public interface MinuteCandleCrawlingService {
 
     int crawMinuteCandlesAndSaveInDb(UnitType unit, MarketType market, LocalDateTime to, int days);
 
