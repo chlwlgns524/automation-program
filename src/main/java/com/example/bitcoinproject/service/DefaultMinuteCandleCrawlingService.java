@@ -1,9 +1,9 @@
 package com.example.bitcoinproject.service;
 
-import com.example.bitcoinproject.core.UpbitCandleCrawler;
+import com.example.bitcoinproject.app.core.crawler.CandleCrawler;
 import com.example.bitcoinproject.dto.DTOConverter;
-import com.example.bitcoinproject.dto.MinuteCandleDTO;
-import com.example.bitcoinproject.repository.CandleJpaRepository;
+import com.example.bitcoinproject.dto.CandleDTO;
+import com.example.bitcoinproject.repository.FiveMinuteCandleJpaRepository;
 import com.example.bitcoinproject.spec.MarketType;
 import com.example.bitcoinproject.spec.UnitType;
 import lombok.RequiredArgsConstructor;
@@ -18,18 +18,22 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultCandleCrawlingService implements CandleCrawlingService {
 
-    private final CandleJpaRepository candleJpaRepository;
-    private final UpbitCandleCrawler upbitCandleCrawler;
+    private final FiveMinuteCandleJpaRepository fiveMinuteCandleJpaRepository;
+    private final CandleCrawler candleCrawler;
 
     @Transactional
     public int crawMinuteCandlesAndSaveInDb(UnitType unit, MarketType market, LocalDateTime to, int days) {
-        List<MinuteCandleDTO> result = upbitCandleCrawler.crawlMinuteCandles(unit, market, to, days);
+        List<CandleDTO> result = candleCrawler.crawlMinuteCandles(unit, market, to, days);
 
-        candleJpaRepository.saveAll(result.stream()
-                .map(DTOConverter::toFiveMinuteCandle)
+        fiveMinuteCandleJpaRepository.saveAll(result.stream()
+                .map(DTOConverter::toBtcFiveMinuteCandleEntity)
                 .collect(Collectors.toList()));
 
         return result.size();
+    }
+
+    public int crawlDayCandlesAndSaveInDb(MarketType marketType, LocalDateTime to, int days) {
+        List<CandleDTO> result = candleCrawler.crawlDayCandles(marketType, to, days);
     }
 
 }

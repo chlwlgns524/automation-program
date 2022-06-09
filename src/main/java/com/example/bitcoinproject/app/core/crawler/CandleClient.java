@@ -1,6 +1,6 @@
-package com.example.bitcoinproject.core;
+package com.example.bitcoinproject.app.core;
 
-import com.example.bitcoinproject.dto.MinuteCandleDTO;
+import com.example.bitcoinproject.dto.CandleDTO;
 import com.example.bitcoinproject.spec.MarketType;
 import com.example.bitcoinproject.spec.UnitType;
 import com.example.bitcoinproject.utils.UriAppender;
@@ -20,13 +20,13 @@ import java.util.Objects;
 
 @Slf4j
 @Component
-public class UpbitCandleClient {
+public class CandleClient {
 
     private final RestTemplate restTemplate;
 
     private URI baseUri;
 
-    public UpbitCandleClient(RestTemplate restTemplate, Environment env) {
+    public CandleClient(RestTemplate restTemplate, Environment env) {
         this.restTemplate = restTemplate;
         try {
             this.baseUri = new URI(Objects.requireNonNull(env.getProperty("info.baseUri")));
@@ -35,12 +35,20 @@ public class UpbitCandleClient {
         }
     }
 
-    public List<MinuteCandleDTO> getMinuteCandles(@NonNull UnitType unit, @NonNull MarketType market, int count, LocalDateTime to) {
+    public List<CandleDTO> getMinuteCandles(@NonNull UnitType unit, @NonNull MarketType market, int count, LocalDateTime to) {
+        return getCandles(UriAppender.getCandleUriForMinutes(baseUri, unit, market, count, to));
+    }
+
+    public List<CandleDTO> getDayCandles(@NonNull MarketType market, int count, LocalDateTime to) {
+        return getCandles(UriAppender.getCandleUriForDays(baseUri, market, count, to));
+    }
+
+    private List<CandleDTO> getCandles(URI uri) {
         return restTemplate.exchange(
-                UriAppender.getCandleUriForMinutes(baseUri, unit, market, count, to),
+                uri,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<MinuteCandleDTO>>(){}).getBody();
+                new ParameterizedTypeReference<List<CandleDTO>>() {}).getBody();
     }
 
 }
