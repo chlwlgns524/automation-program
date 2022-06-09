@@ -1,7 +1,6 @@
 package com.example.bitcoinproject.aop.terminate;
 
-import com.example.bitcoinproject.aop.terminate.Terminal;
-import com.example.bitcoinproject.app.AppTerminator;
+import com.example.bitcoinproject.configuration.AppTerminator;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,8 +13,8 @@ public class TerminateAdvice {
 
     private final AppTerminator appTerminator;
 
-    @AfterReturning(value = "@annotation(terminal)")
-    public void terminateApplicationRighAfterReturning(Terminal terminal) {
+    @AfterReturning(value = "@annotation(com.example.bitcoinproject.aop.terminate.Terminal)")
+    public void terminateApplicationRighAfterReturning() {
         System.out.println("terminateApplicationRighAfterReturning() called!");
 
         appTerminator.terminate();

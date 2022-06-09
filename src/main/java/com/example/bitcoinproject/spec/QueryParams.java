@@ -4,8 +4,7 @@ public enum QueryParams {
 
     MARKET("market"),
     TO("to"),
-    COUNT("count"),
-    CONVERTING_PRICE_UNIT("convertingPriceUnit");
+    COUNT("count");
 
     private final String paramName;
 

@@ -1,5 +1,6 @@
 package com.example.bitcoinproject.core;
 
+import com.example.bitcoinproject.app.core.crawler.CandleClient;
 import com.example.bitcoinproject.dto.CandleDTO;
 import com.example.bitcoinproject.spec.MarketType;
 import com.example.bitcoinproject.spec.UnitType;
@@ -15,15 +16,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles(value = "test")
 @SpringBootTest
-class UpbitCandleClientTest {
+class CandleClientTest {
 
     @Autowired
-    UpbitCandleClient upbitCandleClient;
+    CandleClient candleClient;
 
     @Test
     void testGetMinuteCandles() {
         List<CandleDTO> candleDTOS =
-                upbitCandleClient.getMinuteCandles(UnitType.FIVE_MINUTES, MarketType.KRW_BTC, 200, LocalDateTime.now());
+                candleClient.getMinuteCandles(UnitType.FIVE_MINUTES, MarketType.KRW_BTC, 200, LocalDateTime.now());
 
         candleDTOS.forEach(System.out::println);
         assertThat(candleDTOS.size()).isEqualTo(200);
@@ -34,7 +35,7 @@ class UpbitCandleClientTest {
         LocalDateTime to = LocalDateTime.of(2022, 1, 2, 9, 0, 0);
 
         List<CandleDTO> candleDTOS =
-                upbitCandleClient.getDayCandles(MarketType.KRW_BTC, 200, to);
+                candleClient.getDayCandles(MarketType.KRW_BTC, 200, to);
 
         candleDTOS.forEach(System.out::println);
         assertThat(candleDTOS.size()).isEqualTo(200);

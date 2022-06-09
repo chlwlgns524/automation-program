@@ -1,4 +1,4 @@
-package com.example.bitcoinproject.app;
+package com.example.bitcoinproject.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
