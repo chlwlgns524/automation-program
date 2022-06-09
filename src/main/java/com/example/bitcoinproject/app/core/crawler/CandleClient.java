@@ -1,4 +1,4 @@
-package com.example.bitcoinproject.app.core;
+package com.example.bitcoinproject.app.core.crawler;
 
 import com.example.bitcoinproject.dto.CandleDTO;
 import com.example.bitcoinproject.spec.MarketType;
@@ -21,6 +21,8 @@ import java.util.Objects;
 @Slf4j
 @Component
 public class CandleClient {
+
+    public static final int MAXIMUM_COUNT = 200;
 
     private final RestTemplate restTemplate;
 

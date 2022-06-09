@@ -1,9 +1,9 @@
-package com.example.bitcoinproject.app.core.backtester;
+package com.example.bitcoinproject.app.core.trader;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class BackTester {
+public class Trader {
 
     public void run() {
         System.out.println("BackTester.run() called!");

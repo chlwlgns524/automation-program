@@ -1,4 +1,4 @@
-package com.example.bitcoinproject.app;
+package com.example.bitcoinproject.app.core.crawler;
 
 import org.springframework.stereotype.Component;
 
