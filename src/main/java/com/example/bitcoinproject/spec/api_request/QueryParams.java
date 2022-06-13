@@ -1,4 +1,4 @@
-package com.example.bitcoinproject.spec.api;
+package com.example.bitcoinproject.spec.api_request;
 
 public enum QueryParams {
     SIDE("side"),
