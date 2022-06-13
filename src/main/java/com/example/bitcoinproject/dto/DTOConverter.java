@@ -1,13 +1,14 @@
 package com.example.bitcoinproject.dto;
 
 import com.example.bitcoinproject.entity.DayCandle;
-import com.example.bitcoinproject.entity.FiveMinuteCandle;
-import com.example.bitcoinproject.spec.MarketType;
+import com.example.bitcoinproject.entity.MinuteCandle;
+import com.example.bitcoinproject.spec.api_request.MarketType;
+import com.example.bitcoinproject.spec.api_request.UnitType;
 
 public class DTOConverter {
 
-    public static FiveMinuteCandle toFiveMinuteCandleEntity(CandleDTO candleDTO) {
-        return FiveMinuteCandle.builder()
+    public static MinuteCandle toMinuteCandleEntity(CandleDTO candleDTO) {
+        return MinuteCandle.builder()
                 .market(MarketType.getEnumString(candleDTO.getMarket()))
                 .candleDateTimeUtc(candleDTO.getCandleDateTimeUtc())
                 .candleDateTimeKst(candleDTO.getCandleDateTimeKst())
@@ -18,6 +19,7 @@ public class DTOConverter {
                 .timestamp(candleDTO.getTimestamp())
                 .candleAccTradePrice(candleDTO.getCandleAccTradePrice())
                 .candleAccTradeVolume(candleDTO.getCandleAccTradeVolume())
+                .unit(UnitType.getEnumString(candleDTO.getUnit()))
                 .build();
     }
 

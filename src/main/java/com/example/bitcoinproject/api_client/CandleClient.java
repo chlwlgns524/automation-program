@@ -1,57 +1,38 @@
-package com.example.bitcoinproject.app.core.crawler;
+package com.example.bitcoinproject.api_client;
 
 import com.example.bitcoinproject.dto.CandleDTO;
-import com.example.bitcoinproject.spec.api.MarketType;
-import com.example.bitcoinproject.spec.api.PathParams;
-import com.example.bitcoinproject.spec.api.UnitType;
+import com.example.bitcoinproject.spec.api_request.MarketType;
+import com.example.bitcoinproject.spec.api_request.PathVariable;
+import com.example.bitcoinproject.spec.api_request.UnitType;
 import com.example.bitcoinproject.utils.UriAppender;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
-@Slf4j
 @Component
-public class CandleClient {
+public class CandleClient extends UpbitApiClient {
 
-    public static final int MAXIMUM_COUNT = 200;
+    private final ParameterizedTypeReference<List<CandleDTO>> parameterizedTypeReference = new ParameterizedTypeReference<>() {};
 
-    private final RestTemplate restTemplate;
-
-    private URI baseUri;
-
+    @Autowired
     public CandleClient(RestTemplate restTemplate, Environment env) {
-        this.restTemplate = restTemplate;
-        try {
-            this.baseUri = new URI(Objects.requireNonNull(env.getProperty("baseUri")).concat(PathParams.CANDLES.getParamName()));
-        } catch (URISyntaxException e) {
-            log.error("URI syntax is wrong.");
-        }
+        super(restTemplate, env, PathVariable.CANDLES);
     }
 
     public List<CandleDTO> getMinuteCandles(@NonNull UnitType unit, @NonNull MarketType market, int count, LocalDateTime to) {
-        return getCandles(UriAppender.getCandleUriForMinutes(baseUri, unit, market, count, to));
+        return getResponse(UriAppender.getCandleUriForMinutes(baseUri, unit, market, count, to),
+                parameterizedTypeReference);
     }
 
     public List<CandleDTO> getDayCandles(@NonNull MarketType market, int count, LocalDateTime to) {
-        return getCandles(UriAppender.getCandleUriForDays(baseUri, market, count, to));
-    }
-
-    private List<CandleDTO> getCandles(URI uri) {
-        return restTemplate.exchange(
-                uri,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<CandleDTO>>() {}).getBody();
+        return getResponse(UriAppender.getCandleUriForDays(baseUri, market, count, to),
+                parameterizedTypeReference);
     }
 
 }
