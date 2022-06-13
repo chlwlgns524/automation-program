@@ -1,6 +1,6 @@
 package com.example.bitcoinproject.entity;
 
-import com.example.bitcoinproject.spec.MarketType;
+import com.example.bitcoinproject.spec.api_request.MarketType;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
