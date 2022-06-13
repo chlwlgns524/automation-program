@@ -1,8 +1,9 @@
 package com.example.bitcoinproject.app.core.crawler;
 
 import com.example.bitcoinproject.dto.CandleDTO;
-import com.example.bitcoinproject.spec.MarketType;
-import com.example.bitcoinproject.spec.UnitType;
+import com.example.bitcoinproject.spec.api.MarketType;
+import com.example.bitcoinproject.spec.api.PathParams;
+import com.example.bitcoinproject.spec.api.UnitType;
 import com.example.bitcoinproject.utils.UriAppender;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class CandleClient {
     public CandleClient(RestTemplate restTemplate, Environment env) {
         this.restTemplate = restTemplate;
         try {
-            this.baseUri = new URI(Objects.requireNonNull(env.getProperty("info.baseUri")));
+            this.baseUri = new URI(Objects.requireNonNull(env.getProperty("baseUri")).concat(PathParams.CANDLES.getParamName()));
         } catch (URISyntaxException e) {
             log.error("URI syntax is wrong.");
         }

@@ -1,8 +1,13 @@
-package com.example.bitcoinproject.spec;
+package com.example.bitcoinproject.spec.api;
 
 public enum QueryParams {
-
+    SIDE("side"),
+    VOLUME("volume"),
+    PRICE("price"),
+    ORD_TYPE("ord_type"),
+    IDENTIFIER("identifier"),
     MARKET("market"),
+    MARKETS("markets"),
     TO("to"),
     COUNT("count");
 

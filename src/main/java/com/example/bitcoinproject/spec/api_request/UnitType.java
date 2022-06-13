@@ -1,4 +1,6 @@
-package com.example.bitcoinproject.spec;
+package com.example.bitcoinproject.spec.api;
+
+import java.util.Arrays;
 
 public enum UnitType {
 
@@ -19,6 +21,13 @@ public enum UnitType {
 
     public int getValue() {
         return this.value;
+    }
+
+    public static UnitType getEnumString(int value) {
+        return Arrays.stream(values())
+                .filter(unitType -> unitType.value == value)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Undefined UnitType!"));
     }
 
 }

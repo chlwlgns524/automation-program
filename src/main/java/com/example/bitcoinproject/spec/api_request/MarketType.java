@@ -1,4 +1,4 @@
-package com.example.bitcoinproject.spec;
+package com.example.bitcoinproject.spec.api;
 
 import java.util.Arrays;
 

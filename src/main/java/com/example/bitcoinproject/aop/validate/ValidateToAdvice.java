@@ -12,7 +12,7 @@ import java.util.Arrays;
 @Aspect
 public class ValidateToAdvice {
 
-    @After(value = "@annotation(com.example.bitcoinproject.aop.validate.ValidateTo)")
+    @After(value = "@annotation(com.example.bitcoinproject.aop.validate.CheckTimeParam)")
     public void isValidTo(JoinPoint joinPoint) {
         boolean valid = isValidTime((LocalDateTime) Arrays.stream(joinPoint.getArgs())
                 .filter(o -> o instanceof LocalDateTime)

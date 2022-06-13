@@ -1,9 +1,10 @@
 package com.example.bitcoinproject.core;
 
-import com.example.bitcoinproject.app.core.crawler.CandleClient;
+import com.example.bitcoinproject.api_client.CandleClient;
 import com.example.bitcoinproject.dto.CandleDTO;
-import com.example.bitcoinproject.spec.MarketType;
-import com.example.bitcoinproject.spec.UnitType;
+import com.example.bitcoinproject.spec.api.MarketType;
+import com.example.bitcoinproject.spec.api.UnitType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ class CandleClientTest {
     CandleClient candleClient;
 
     @Test
+    @DisplayName("api 호출을 통해 요청한 분봉을 받아온다.")
     void testGetMinuteCandles() {
         List<CandleDTO> candleDTOS =
                 candleClient.getMinuteCandles(UnitType.FIVE_MINUTES, MarketType.KRW_BTC, 200, LocalDateTime.now());
@@ -31,6 +33,7 @@ class CandleClientTest {
     }
 
     @Test
+    @DisplayName("api 호출을 통해 요청한 일봉을 받아온다.")
     void testGetDayCandles() {
         LocalDateTime to = LocalDateTime.of(2022, 1, 2, 9, 0, 0);
 
