@@ -1,7 +1,7 @@
 package com.example.bitcoinproject.app.core.crawler;
 
 import com.example.bitcoinproject.dto.CandleDTO;
-import com.example.bitcoinproject.spec.MarketType;
+import com.example.bitcoinproject.spec.api_request.MarketType;
 
 import java.time.LocalDateTime;
 import java.util.List;

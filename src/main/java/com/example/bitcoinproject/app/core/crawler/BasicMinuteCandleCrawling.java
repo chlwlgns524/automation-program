@@ -1,8 +1,10 @@
 package com.example.bitcoinproject.app.core.crawler;
 
+import com.example.bitcoinproject.api_client.CandleClient;
 import com.example.bitcoinproject.dto.CandleDTO;
-import com.example.bitcoinproject.spec.MarketType;
-import com.example.bitcoinproject.spec.UnitType;
+import com.example.bitcoinproject.spec.api_request.MarketType;
+import com.example.bitcoinproject.spec.api_request.UnitType;
+import com.example.bitcoinproject.utils.Timer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.bitcoinproject.app.core.crawler.CandleClient.MAXIMUM_COUNT;
-import static com.example.bitcoinproject.app.core.crawler.CandleCrawler.waitFor;
+import static com.example.bitcoinproject.api_client.CandleClient.MAXIMUM_COUNT;
 
 @RequiredArgsConstructor
 @Component
@@ -34,7 +35,7 @@ public class BasicMinuteCandleCrawling implements MinuteCandleCrawling {
             requestData.addAll(candleClient.getMinuteCandles(unit, market, MAXIMUM_COUNT, to));
             minutesConsumed -= intervalByMaximumCount;
             to = to.minus(intervalByMaximumCount, ChronoUnit.MINUTES);
-            waitFor(ENOUTGH_WAIT_TIME);
+            Timer.waitFor(ENOUTGH_WAIT_TIME);
         }
         requestData.addAll(candleClient.getMinuteCandles(unit, market, getCountFromMinutes(minutesConsumed, unit.getValue()), to));
 
